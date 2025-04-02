@@ -59,9 +59,6 @@ java -jar target/cardio_generator-1.0-SNAPSHOT.jar --patient-count 100 --output 
 - `file:<directory>`: Saves the simulated data to files within the specified directory.
 - `websocket:<port>`: Streams the simulated data to WebSocket clients connected to the specified port.
 - `tcp:<port>`: Streams the simulated data to TCP clients connected to the specified port.
-## Project Member
-i6398036
-
 
 ## License
 
