@@ -6,6 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
+/**
+ * Implements the {@link OutputStrategy} interface to output patient information to a file.
+ * <p>
+ * This class handles the creation of directories and files, and appends patient data
+ * into text files based on their label.
+ */
 
 //    here the class name should be the same as the file name
 //    also the class name should be un the form UpperCamelCase.
@@ -22,7 +28,18 @@ public class FileOutputStrategy implements OutputStrategy {
 
         this.baseDirectory = baseDirectory;
     }
-
+    /**
+     * Outputs patient data to a text file.
+     * <p>
+     * This method creates a directory (if it doesn't already exist), constructs a file path based
+     * on the label, stores it in a map if it hasn't been used before, and then appends the
+     * patient data to the corresponding file.
+     *
+     * @param patientId  the ID of the patient
+     * @param timestamp  the timestamp of the data
+     * @param label      the label/category of the data (used to determine the filename)
+     * @param data       the actual patient data to be written
+     */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         try {

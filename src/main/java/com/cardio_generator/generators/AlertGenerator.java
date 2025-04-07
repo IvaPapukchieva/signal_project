@@ -5,6 +5,12 @@ import java.util.Random;
 import com.cardio_generator.outputs.OutputStrategy;
 
 public class AlertGenerator implements PatientDataGenerator {
+    /**
+     * This class implements {@link PatientDataGenerator } and is used to simulate alert data for patients
+     * (e.g.,  emergencies).
+     * <p>
+     * It keeps track of which patients are currently in an alert state.
+     */
 
 //this should be in UPPER_SNAKE_CASE, because ir is final
     public static final Random randomGenerator = new Random();
@@ -16,6 +22,15 @@ public class AlertGenerator implements PatientDataGenerator {
         alertStates = new boolean[patientCount + 1];
     }
 
+    /**
+     * Generates an alert status for a given patient.
+     * <p>
+     * - If the patient already has an active alert, there's a 90% chance it gets resolved.
+     * - If the patient is not in an alert state, there's a small chance an alert gets triggered.
+     *
+     * @param patientId the ID of the patient
+     * @param outputStrategy the strategy used to output the generated data
+     */
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
