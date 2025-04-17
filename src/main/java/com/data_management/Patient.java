@@ -24,6 +24,11 @@ public class Patient {
         this.patientRecords = new ArrayList<>();
     }
 
+    public String getPatientId(){
+        return String.valueOf(patientId);
+
+    }
+
     /**
      * Adds a new record to this patient's list of medical records.
      * The record is created with the specified measurement value, record type, and
@@ -52,8 +57,24 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
+        List<PatientRecord> filtered = new ArrayList<>();
 
-        // TODO Implement and test this method
-        return null;
+        for (PatientRecord record : patientRecords) {
+            long timestamp = record.getTimestamp();
+            if (timestamp >= startTime && timestamp <= endTime) {
+                filtered.add(record);
+            }
+        }
+
+        return filtered;
     }
+
+    public List<PatientRecord> getAllRecords() {
+
+
+        return patientRecords;
+    }
+
+
+
 }

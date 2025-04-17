@@ -60,6 +60,7 @@ public class DataStorage {
      */
     public List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
         Patient patient = patientMap.get(patientId);
+        System.out.println(patient);
         if (patient != null) {
             return patient.getRecords(startTime, endTime);
         }
