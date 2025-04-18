@@ -5,6 +5,11 @@ import com.data_management.PatientRecord;
 import java.util.List;
 
 public class ECGAlert implements AlertStrategy {
+    /**
+     * The ECGAlert class implements the AlertStrategy interface and is responsible for
+     * evaluating ECG records to detect abnormal ECG data. If the value exceeds a threshold,
+     * an alert is triggered indicating an abnormal ECG reading.
+     */
 
     @Override
     public void evaluateAlert(String patientId, List<PatientRecord> records) {

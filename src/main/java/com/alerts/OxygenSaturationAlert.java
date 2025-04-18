@@ -6,6 +6,12 @@ import java.util.List;
 
 public class OxygenSaturationAlert implements AlertStrategy {
 
+    /**
+     * The OxygenSaturationAlert class implements AlertStrategy and is responsible for
+     * evaluating oxygen saturation records to detect low oxygen saturation and rapid
+     * drops in saturation levels, triggering alerts accordingly.
+     */
+
     @Override
     public void evaluateAlert(String patientId, List<PatientRecord> records) {
         double prevSaturation = -1;

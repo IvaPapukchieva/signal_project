@@ -4,6 +4,11 @@ import com.data_management.PatientRecord;
 
 import java.util.List;
 
+/**
+ * The HypotensiveHypoxemiaAlert class implements AlertStrategy and is responsible for
+ * evaluating records to detect hypotensive hypoxemia. It checks if both systolic
+ * blood pressure is below 90 and oxygen saturation is below 92, triggering an alert if true.
+ */
 public class HypotensiveHypoxemiaAlert implements AlertStrategy {
 
     @Override

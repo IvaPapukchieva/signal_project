@@ -6,6 +6,12 @@ import com.data_management.PatientRecord;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The BloodPressureAlert class implements AlertStrategy and is responsible for
+ * evaluating blood pressure records to detect critical conditions.
+ * It checks for critical systolic and diastolic blood pressure values,
+ * as well as trends in these values over time.
+ */
 public class BloodPressureAlert implements AlertStrategy {
 
     @Override

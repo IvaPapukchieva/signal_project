@@ -18,6 +18,7 @@ import java.util.List;
 
 class DataStorageTest {
 
+//    test adding and getting records
     @Test
     void testAddAndGetRecords() {
 
@@ -31,6 +32,7 @@ class DataStorageTest {
         assertEquals(100.0, records.get(0).getMeasurementValue()); // Validate first record
     }
 
+//    test the fileDataReader
     @Test
     void testFileDataReader() throws IOException {
         FileWriter writer = new FileWriter("test_fileDataReader.txt");
@@ -50,7 +52,7 @@ class DataStorageTest {
         assertEquals(200.0, records.get(1).getMeasurementValue());
     }
 
-
+//test all alerts
     @Test
     void testHypotensiveHypoxemiaAlert() {
         PatientRecord record1 = new PatientRecord(1, 85.0, "Systolic", 1714376789050L); // Hypotensive
@@ -100,7 +102,6 @@ class DataStorageTest {
 
     @Test
     void testBloodPressureAlert() {
-        // Setup test data for Blood Pressure Alert
         PatientRecord record1 = new PatientRecord(1, 185.0, "Systolic", 1714376789050L); // Critical systolic pressure
         PatientRecord record2 = new PatientRecord(1, 130.0, "Diastolic", 1714376789051L); // Critical diastolic pressure
         PatientRecord record3 = new PatientRecord(1, 88.0, "Systolic", 1714376789052L);  // Normal systolic pressure
