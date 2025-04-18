@@ -1,0 +1,3 @@
+patientId,timestamp,recordType,value
+1,100.0,WhiteBloodCells,1714376789050
+1,200.0,WhiteBloodCells,1714376789051
