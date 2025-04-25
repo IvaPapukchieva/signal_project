@@ -21,10 +21,16 @@ public class Alert {
     }
 
     public void setCondition(String condition) {
-      this.condition=condition;
+        this.condition = condition;
     }
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+
+    public void triggerAlert() {
+        System.out.println("Alert");
+        System.out.println(getCondition());
     }
 }

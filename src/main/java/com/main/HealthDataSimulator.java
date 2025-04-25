@@ -1,26 +1,19 @@
 package com.main;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import com.cardio_generator.generators.AlertGenerator;
-
-import com.cardio_generator.generators.BloodPressureDataGenerator;
-import com.cardio_generator.generators.BloodSaturationDataGenerator;
-import com.cardio_generator.generators.BloodLevelsDataGenerator;
-import com.cardio_generator.generators.ECGDataGenerator;
+import com.cardio_generator.generators.*;
 import com.cardio_generator.outputs.*;
 
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 /**
  * The `HealthDataSimulator` class  represents a medical data generator that
  * schedules tasks for generating and outputting the simulated health data.

@@ -1,5 +1,6 @@
 package com.alerts;
 
+import com.alerts.alert_strategies.*;
 import com.data_management.DataStorage;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
@@ -22,15 +23,15 @@ public class AlertGenerator {
      * @param dataStorage the data storage system that provides access to patient
      *                    data
      */
-    private DataStorage dataStorage;
+    private DataStorage dataStorage= DataStorage.getInstance();
     private List<AlertStrategy> strategies = new ArrayList<>();
 
-    public AlertGenerator(DataStorage dataStorage) {
+    public AlertGenerator() {
         this.dataStorage = dataStorage;
-        strategies.add(new BloodPressureAlert());
-        strategies.add(new OxygenSaturationAlert());
-        strategies.add(new HypotensiveHypoxemiaAlert());
-        strategies.add(new ECGAlert());
+        strategies.add(new BloodPressureStrategy());
+        strategies.add(new OxygenSaturationStrategy());
+        strategies.add(new HypotensiveHypoxemiaStrategy());
+        strategies.add(new HeartRateStrategy());
     }
 
     /**
@@ -46,7 +47,7 @@ public class AlertGenerator {
         String patientId = patient.getPatientId();
 
         for (AlertStrategy strategy : strategies) {
-            strategy.evaluateAlert(patientId, records);
+            strategy.checkAlert(patientId, records);
         }
     }
 

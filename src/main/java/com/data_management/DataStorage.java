@@ -1,10 +1,11 @@
 package com.data_management;
 
+import com.alerts.AlertGenerator;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.alerts.AlertGenerator;
 
 /**
  * Manages storage and retrieval of patient data within a healthcare monitoring
@@ -12,9 +13,17 @@ import com.alerts.AlertGenerator;
  * This class serves as a repository for all patient records, organized by
  * patient IDs.
  */
-public class DataStorage {
+public final class DataStorage {
     private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+    private static DataStorage dataStorage= null;
 
+
+    public static DataStorage getInstance(){
+        if(dataStorage==null){
+            dataStorage=new DataStorage();
+        }
+        return dataStorage;
+    }
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
@@ -66,6 +75,14 @@ public class DataStorage {
         }
         return new ArrayList<>(); // return an empty list if no patient is found
     }
+    public List<PatientRecord> getAllRecords(int patientId) {
+        Patient patient = patientMap.get(patientId);
+        System.out.println(patient);
+        if (patient != null) {
+            return patient.getAllRecords();
+        }
+        return new ArrayList<>(); // return an empty list if no patient is found
+    }
 
     /**
      * Retrieves a collection of all patients stored in the data storage.
@@ -102,7 +119,7 @@ public class DataStorage {
         }
 
         // Initialize the AlertGenerator with the storage
-        AlertGenerator alertGenerator = new AlertGenerator(storage);
+        AlertGenerator alertGenerator = new AlertGenerator();
 
         // Evaluate all patients' data to check for conditions that may trigger alerts
         for (Patient patient : storage.getAllPatients()) {

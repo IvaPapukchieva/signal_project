@@ -1,0 +1,7 @@
+Week 3 Report
+
+As shown in the coverage report, all the code I implemented
+for the Week 3 alerts has achieved 100% code coverage.
+Moving forward, I will continue writing additional tests
+for the remaining parts of the system to ensure that all
+other files also achieve full test coverage and functionality.

@@ -1,20 +1,20 @@
 package data_management;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.alerts.AlertGenerator;
-import com.alerts.ECGAlert;
-import com.alerts.HypotensiveHypoxemiaAlert;
-import com.alerts.OxygenSaturationAlert;
-import com.data_management.*;
+import com.alerts.alert_strategies.BloodPressureStrategy;
+import com.alerts.alert_strategies.HeartRateStrategy;
+import com.alerts.alert_strategies.HypotensiveHypoxemiaStrategy;
+import com.alerts.alert_strategies.OxygenSaturationStrategy;
+import com.data_management.DataStorage;
+import com.data_management.FileDataReader;
+import com.data_management.PatientRecord;
 import org.junit.jupiter.api.Test;
-import com.alerts.*;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DataStorageTest {
 
@@ -22,12 +22,12 @@ class DataStorageTest {
     @Test
     void testAddAndGetRecords() {
 
-        DataStorage storage = new DataStorage();
+        DataStorage dataStorage= DataStorage.getInstance();
 
-        storage.addPatientData(1, 100.0, "WhiteBloodCells", 1714376789050L);
-        storage.addPatientData(1, 200.0, "WhiteBloodCells", 1714376789051L);
+        dataStorage.addPatientData(1, 100.0, "WhiteBloodCells", 1714376789050L);
+        dataStorage.addPatientData(1, 200.0, "WhiteBloodCells", 1714376789051L);
 
-        List<PatientRecord> records = storage.getRecords(1, 1714376789050L, 1714376789051L);
+        List<PatientRecord> records = dataStorage.getRecords(1, 1714376789050L, 1714376789051L);
         assertEquals(2, records.size());
         assertEquals(100.0, records.get(0).getMeasurementValue());
     }
@@ -65,8 +65,8 @@ class DataStorageTest {
         records.add(record3);
         records.add(record4);
 
-        HypotensiveHypoxemiaAlert alert = new HypotensiveHypoxemiaAlert();
-        alert.evaluateAlert("1", records);
+        HypotensiveHypoxemiaStrategy alert = new  HypotensiveHypoxemiaStrategy ();
+        alert.checkAlert("1", records);
 
     }
 
@@ -80,8 +80,8 @@ class DataStorageTest {
         records.add(record1);
         records.add(record2);
         records.add(record3);
-        OxygenSaturationAlert alert = new OxygenSaturationAlert();
-        alert.evaluateAlert("1", records);
+        OxygenSaturationStrategy alert = new  OxygenSaturationStrategy();
+        alert.checkAlert("1", records);
 
 
     }
@@ -94,8 +94,8 @@ class DataStorageTest {
         records.add(record1);
         records.add(record2);
 
-        ECGAlert alert = new ECGAlert();
-        alert.evaluateAlert("1", records);
+        HeartRateStrategy alert = new HeartRateStrategy();
+        alert.checkAlert("1", records);
 
     }
 
@@ -113,8 +113,8 @@ class DataStorageTest {
 
 
 
-        BloodPressureAlert alert = new BloodPressureAlert();
-        alert.evaluateAlert("1", records);
+        BloodPressureStrategy alert = new  BloodPressureStrategy();
+        alert.checkAlert("1", records);
     }
 
 
