@@ -28,8 +28,8 @@ class DataStorageTest {
         storage.addPatientData(1, 200.0, "WhiteBloodCells", 1714376789051L);
 
         List<PatientRecord> records = storage.getRecords(1, 1714376789050L, 1714376789051L);
-        assertEquals(2, records.size()); // Check if two records are retrieved
-        assertEquals(100.0, records.get(0).getMeasurementValue()); // Validate first record
+        assertEquals(2, records.size());
+        assertEquals(100.0, records.get(0).getMeasurementValue());
     }
 
 //    test the fileDataReader
@@ -37,7 +37,6 @@ class DataStorageTest {
     void testFileDataReader() throws IOException {
         FileWriter writer = new FileWriter("test_fileDataReader.txt");
         writer.write("patientId,timestamp,recordType,value\n");
-//        //    int patientId, double measurementValue, String recordType, long timestamp)
         writer.write("1,100.0,WhiteBloodCells,1714376789050\n");
         writer.write("1,200.0,WhiteBloodCells,1714376789051\n");
         writer.close();
@@ -67,22 +66,22 @@ class DataStorageTest {
         records.add(record4);
 
         HypotensiveHypoxemiaAlert alert = new HypotensiveHypoxemiaAlert();
-        alert.evaluateAlert("patient123", records);
+        alert.evaluateAlert("1", records);
 
     }
 
     @Test
     void testOxygenSaturationAlert() {
 
-        PatientRecord record1 = new PatientRecord(1, 88.0, "Oxygen Saturation", 1714376789050L); // Oxygen saturation too low
-        PatientRecord record2 = new PatientRecord(1, 75.0, "Oxygen Saturation", 1714376789051L); // Oxygen saturation dropped rapidly
-        PatientRecord record3 = new PatientRecord(1, 95.0, "Oxygen Saturation", 1714376789052L); // Normal saturation
+        PatientRecord record1 = new PatientRecord(1, 88.0, "Oxygen Saturation", 1714376789050L);
+        PatientRecord record2 = new PatientRecord(1, 75.0, "Oxygen Saturation", 1714376789051L);
+        PatientRecord record3 = new PatientRecord(1, 95.0, "Oxygen Saturation", 1714376789052L);
         List<PatientRecord> records = new ArrayList<>();
         records.add(record1);
         records.add(record2);
         records.add(record3);
         OxygenSaturationAlert alert = new OxygenSaturationAlert();
-        alert.evaluateAlert("patient123", records);
+        alert.evaluateAlert("1", records);
 
 
     }
@@ -96,27 +95,27 @@ class DataStorageTest {
         records.add(record2);
 
         ECGAlert alert = new ECGAlert();
-        alert.evaluateAlert("patient123", records);
+        alert.evaluateAlert("1", records);
 
     }
 
     @Test
     void testBloodPressureAlert() {
-        PatientRecord record1 = new PatientRecord(1, 185.0, "Systolic", 1714376789050L); // Critical systolic pressure
-        PatientRecord record2 = new PatientRecord(1, 130.0, "Diastolic", 1714376789051L); // Critical diastolic pressure
-        PatientRecord record3 = new PatientRecord(1, 88.0, "Systolic", 1714376789052L);  // Normal systolic pressure
-        PatientRecord record4 = new PatientRecord(1, 62.0, "Diastolic", 1714376789053L);  // Normal diastolic pressure
         List<PatientRecord> records = new ArrayList<>();
-        records.add(record1);
-        records.add(record2);
-        records.add(record3);
-        records.add(record4);
+        records.add(new PatientRecord(1, 170.0, "Systolic", 1714376789001L));
+        records.add(new PatientRecord(1, 105.0, "Systolic", 1714376789002L));
+        records.add(new PatientRecord(1, 94.0, "Systolic", 1714376789003L));
+        records.add(new PatientRecord(1, 1000.0, "Systolic", 1714376789001L));
+        records.add(new PatientRecord(1, 97.0, "Diastolic", 1714376789001L));
+        records.add(new PatientRecord(1, 109.0, "Diastolic", 1714376789002L));
+        records.add(new PatientRecord(1, 120.0, "Diastolic", 1714376789003L));
+        records.add(new PatientRecord(1, 1000.0, "Diastolic", 1714376789001L));
+
+
 
         BloodPressureAlert alert = new BloodPressureAlert();
-        alert.evaluateAlert("patient123", records);
-
+        alert.evaluateAlert("1", records);
     }
-
 
 
 }

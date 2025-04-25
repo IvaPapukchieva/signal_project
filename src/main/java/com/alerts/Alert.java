@@ -20,6 +20,10 @@ public class Alert {
         return condition;
     }
 
+    public void setCondition(String condition) {
+      this.condition=condition;
+    }
+
     public long getTimestamp() {
         return timestamp;
     }

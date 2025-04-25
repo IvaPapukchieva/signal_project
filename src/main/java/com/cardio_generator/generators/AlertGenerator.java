@@ -12,7 +12,7 @@ public class AlertGenerator implements PatientDataGenerator {
      * It keeps track of which patients are currently in an alert state.
      */
 
-//this should be in UPPER_SNAKE_CASE, because ir is final
+
     public static final Random randomGenerator = new Random();
 //    this should be in lowerCamelCase
     private boolean[] alertStates; // false = resolved, true = pressed
