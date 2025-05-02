@@ -3,7 +3,7 @@ package com.alerts.alert_decorators;
 import com.alerts.Alert;
 
 public class AlertDecorator extends Alert {
-    private  Alert decoratedAlert;;
+    private final Alert decoratedAlert;;
 
     public AlertDecorator(Alert decoratedAlert) {
         super(decoratedAlert.getPatientId(), decoratedAlert.getCondition(), decoratedAlert.getTimestamp());
