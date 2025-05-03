@@ -26,7 +26,7 @@ public class HypotensiveHypoxemiaStrategy implements AlertStrategy {
             }
 
             if (systolic < SYSTOLIC_THRESHOLD && oxygenSaturation < OXYGEN_SATURATION_THRESHOLD) {
-                String condition = "Hypotensive Hypoxemia detected! :(";
+                String condition = "Hypotensive Hypoxemia detected! ";
                 long timestamp = record.getTimestamp();
                 Alert alert= new Alert(patientId,condition,timestamp);
                 alert.triggerAlert();

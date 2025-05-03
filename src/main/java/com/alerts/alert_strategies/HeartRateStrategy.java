@@ -26,7 +26,7 @@ public class HeartRateStrategy implements AlertStrategy {
             long timestamp = record.getTimestamp();
 
             if (type.equals("ECG") && value > THRESHOLD) {
-                condition = "Heart Rate is to high! ";
+                condition = "Heart Rate is too high! ";
                 Alert alert= new Alert(patientId,condition,timestamp);
                 alert.triggerAlert();
             }

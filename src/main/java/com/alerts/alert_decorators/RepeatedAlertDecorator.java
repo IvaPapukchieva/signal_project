@@ -1,30 +1,44 @@
 package com.alerts.alert_decorators;
 
-import com.alerts.Alert;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-//This class needs to be implemented
 
-public class RepeatedAlertDecorator extends AlertDecorator{
+public class RepeatedAlertDecorator extends AlertDecorator {
 
-    private final double interval;
+    private final long interval;
+    private final double amountOfRepetitions;
+
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    public RepeatedAlertDecorator(Alert decoratedAlert, double interval) {
+    public RepeatedAlertDecorator(AlertComponent decoratedAlert, long interval, double amountOfRepetitions) {
         super(decoratedAlert);
-        this.interval=interval;
-    }
-
-    public void checkAlertForTime() {
-        scheduler.scheduleAtFixedRate(this::triggerAlert, 0, (long) interval, TimeUnit.SECONDS);
+        this.interval = interval;
+        this.amountOfRepetitions = amountOfRepetitions;
     }
 
 
     @Override
     public void triggerAlert() {
-        super.triggerAlert();
+        final int[] currentRepetitions = {0};
+        scheduler.scheduleAtFixedRate(() -> {
+            if (currentRepetitions[0] >= amountOfRepetitions) {
+                scheduler.shutdown();
+                return;
+            }
 
+            super.triggerAlert();
+            System.out.println("This is repetition #" + (currentRepetitions[0] + 1));
+            currentRepetitions[0]++;
+        }, 0, (long) interval, TimeUnit.SECONDS);
     }
+
+    @Override
+    public String getAlertDetails() {
+        return super.getAlertDetails() +
+                "\nRepetition interval: " + interval + " seconds" +
+                "\nRepetitions: " + (int) amountOfRepetitions;
+    }
+
 }
+

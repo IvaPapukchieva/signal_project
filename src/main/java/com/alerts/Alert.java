@@ -1,7 +1,9 @@
 package com.alerts;
 
+import com.alerts.alert_decorators.AlertComponent;
+
 // Represents an alert
-public class Alert {
+public class Alert implements AlertComponent {
     private String patientId;
     private String condition;
     private long timestamp;
@@ -31,7 +33,15 @@ public class Alert {
 
 
     public void triggerAlert() {
-        System.out.println("Alert");
-        System.out.println(getCondition());
+        System.out.println("An alert was triggered!\n" +
+    "Reason: " + getCondition());
+    }
+
+    @Override
+    public String getAlertDetails() {
+        return "This alert has the following details:\n" +
+                "Patient ID: " + getPatientId() + "\n" +
+                "Condition: " + getCondition() + "\n" +
+                "Timestamp: " + getTimestamp();
     }
 }

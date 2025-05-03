@@ -1,12 +1,10 @@
 package com.alerts.alert_decorators;
 
-import com.alerts.Alert;
 
-public class AlertDecorator extends Alert {
-    private final Alert decoratedAlert;;
+public class AlertDecorator implements AlertComponent{
+    private final AlertComponent decoratedAlert;;
 
-    public AlertDecorator(Alert decoratedAlert) {
-        super(decoratedAlert.getPatientId(), decoratedAlert.getCondition(), decoratedAlert.getTimestamp());
+    public AlertDecorator(AlertComponent decoratedAlert) {
         this.decoratedAlert = decoratedAlert;
     }
     @Override
@@ -27,6 +25,11 @@ public class AlertDecorator extends Alert {
     @Override
     public void triggerAlert() {
         decoratedAlert.triggerAlert();
+    }
+
+    @Override
+    public String getAlertDetails() {
+        return decoratedAlert.getAlertDetails();
     }
 
 

@@ -42,5 +42,4 @@ class DataStorageTest {
         assertEquals(200.0, records.get(1).getMeasurementValue());
     }
 
-
 }

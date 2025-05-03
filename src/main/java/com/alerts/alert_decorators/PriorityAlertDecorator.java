@@ -5,7 +5,7 @@ import com.alerts.Alert;
 public class PriorityAlertDecorator extends AlertDecorator {
     private final String priorityLevel;
 
-    public PriorityAlertDecorator(Alert decoratedAlert, String priorityLevel){
+    public PriorityAlertDecorator(AlertComponent decoratedAlert, String priorityLevel){
         super(decoratedAlert);
         this.priorityLevel = priorityLevel;
     }
@@ -15,14 +15,8 @@ public class PriorityAlertDecorator extends AlertDecorator {
     }
     @Override
     public String getCondition() {
-        return super.getCondition() + " Priority Level: " + getPriorityLevel();
+        return " Priority Level: " + getPriorityLevel() +". This patient is: " + super.getCondition() ;
 
-
-    }
-
-
-    public void printCondition() {
-        System.out.println(getCondition());
 
     }
 
@@ -30,6 +24,12 @@ public class PriorityAlertDecorator extends AlertDecorator {
     @Override
     public void triggerAlert() {
         super.triggerAlert();
+        System.out.println("Triggering priority alert!" + getCondition());
 
+    }
+
+    @Override
+    public String getAlertDetails() {
+        return "Priority Level: " + getPriorityLevel() + "\n" + super.getAlertDetails();
     }
 }
