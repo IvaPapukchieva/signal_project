@@ -1,6 +1,10 @@
 package com.alerts.alert_decorators;
-import java.util.concurrent.*;
+
 import com.alerts.Alert;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 //This class needs to be implemented
 
 public class RepeatedAlertDecorator extends AlertDecorator{

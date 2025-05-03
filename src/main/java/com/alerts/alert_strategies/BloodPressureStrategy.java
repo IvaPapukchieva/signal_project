@@ -1,6 +1,9 @@
 package com.alerts.alert_strategies;
 
+
 import com.alerts.Alert;
+import com.alerts.alert_factories.AlertFactory;
+import com.alerts.alert_factories.BloodPressureAlertFactory;
 import com.data_management.PatientRecord;
 
 import java.util.ArrayList;
@@ -8,15 +11,8 @@ import java.util.List;
 
 public class BloodPressureStrategy implements AlertStrategy{
 
-    /**
-     * BloodPressureStrategy implements the AlertStrategy interface to monitor
-     * systolic and diastolic blood pressure readings.
-     * <p>
-     * It triggers alerts if:
-     * - Systolic > 180 or < 90
-     * - Diastolic > 120 or < 60
-     * - A consistent increasing or decreasing trend is detected in the last 3 readings
-     */
+    private final AlertFactory bloodPressureAlertFactory;
+
 
     private static final double SYSTOLIC_HIGH_THRESHOLD = 180;
     private static final double SYSTOLIC_LOW_THRESHOLD = 90;
@@ -24,6 +20,10 @@ public class BloodPressureStrategy implements AlertStrategy{
     private static final double DIASTOLIC_LOW_THRESHOLD = 60;
     private static final double TREND_THRESHOLD = 10;
     private static final int TREND_SIZE = 3;
+
+    public BloodPressureStrategy() {
+        this.bloodPressureAlertFactory=new BloodPressureAlertFactory();
+    }
 
     @Override
     public void checkAlert(String patientId, List<PatientRecord> records) {
@@ -38,7 +38,7 @@ public class BloodPressureStrategy implements AlertStrategy{
             if (type.equals("Systolic")) {
                 systolicValues.add(value);
                 if (value > SYSTOLIC_HIGH_THRESHOLD || value < SYSTOLIC_LOW_THRESHOLD) {
-                    condition = "The systolic blood pressure is Critical! :(";
+                    condition = "The systolic blood pressure is Critical!";
                     Alert alert= new Alert(patientId,condition,timestamp);
                     alert.triggerAlert();
                 } else if (systolicValues.size() == TREND_SIZE) {
@@ -52,7 +52,7 @@ public class BloodPressureStrategy implements AlertStrategy{
             if (type.equals("Diastolic")) {
                 diastolicValues.add(value);
                 if (value > DIASTOLIC_HIGH_THRESHOLD || value < DIASTOLIC_LOW_THRESHOLD) {
-                    condition = "The diastolic blood pressure is Critical! :(";
+                    condition = "The diastolic blood pressure is Critical!";
                     Alert alert= new Alert(patientId,condition,timestamp);
                     alert.triggerAlert();
                 } else if (diastolicValues.size() == TREND_SIZE) {
@@ -71,12 +71,12 @@ public class BloodPressureStrategy implements AlertStrategy{
         double thirdValue = values.get(2);
         String condition = "";
         if ((secondValue - firstValue > TREND_THRESHOLD) && (thirdValue - secondValue > TREND_THRESHOLD)) {
-            condition = "Blood pressure is consistently increasing :( ";
+            condition = "Blood pressure is consistently increasing! ";
            Alert alert= new Alert(patientId,condition,timestamp);
            alert.triggerAlert();
             values.remove(0);
         } else if ((firstValue - secondValue > TREND_THRESHOLD) && (secondValue - thirdValue > TREND_THRESHOLD)) {
-            condition = "Blood pressure is consistently decreasing! :(";
+            condition = "Blood pressure is consistently decreasing! ";
             Alert alert= new Alert(patientId,condition,timestamp);
             alert.triggerAlert();
         }

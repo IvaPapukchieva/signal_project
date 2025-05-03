@@ -24,12 +24,11 @@ public class AlertGenerator {
      *                    data
      */
     private DataStorage dataStorage= DataStorage.getInstance();
-    private List<AlertStrategy> strategies = new ArrayList<>();
+    private final List<AlertStrategy> strategies = new ArrayList<>();
 
     public AlertGenerator() {
-        this.dataStorage = dataStorage;
         strategies.add(new BloodPressureStrategy());
-        strategies.add(new OxygenSaturationStrategy());
+        strategies.add(new BloodOxygenStrategy());
         strategies.add(new HypotensiveHypoxemiaStrategy());
         strategies.add(new HeartRateStrategy());
     }

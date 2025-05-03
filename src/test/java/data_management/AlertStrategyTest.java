@@ -2,7 +2,7 @@ package data_management;
 import com.alerts.alert_strategies.BloodPressureStrategy;
 import com.alerts.alert_strategies.HeartRateStrategy;
 import com.alerts.alert_strategies.HypotensiveHypoxemiaStrategy;
-import com.alerts.alert_strategies.OxygenSaturationStrategy;
+import com.alerts.alert_strategies.BloodOxygenStrategy;
 import com.data_management.PatientRecord;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +41,7 @@ class AlertStrategyTest {
         records.add(record1);
         records.add(record2);
         records.add(record3);
-        OxygenSaturationStrategy alert = new  OxygenSaturationStrategy();
+        BloodOxygenStrategy alert = new BloodOxygenStrategy();
         alert.checkAlert("1", records);
 
 

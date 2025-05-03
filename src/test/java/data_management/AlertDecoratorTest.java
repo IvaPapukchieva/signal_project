@@ -18,5 +18,6 @@ public class AlertDecoratorTest {
         repeatedAlertDecorator.checkAlertForTime();
         priorityAlertDecorator.printCondition();
 
+
     }
 }
