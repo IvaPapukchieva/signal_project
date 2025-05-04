@@ -2,6 +2,7 @@ package com.alerts.alert_strategies;
 
 
 import com.alerts.Alert;
+import com.alerts.alert_decorators.AlertExecutor;
 import com.alerts.alert_factories.AlertFactory;
 import com.alerts.alert_factories.BloodPressureAlertFactory;
 import com.data_management.PatientRecord;
@@ -39,8 +40,9 @@ public class BloodPressureStrategy implements AlertStrategy{
                 systolicValues.add(value);
                 if (value > SYSTOLIC_HIGH_THRESHOLD || value < SYSTOLIC_LOW_THRESHOLD) {
                     condition = "The systolic blood pressure is Critical!";
-                    Alert alert= new Alert(patientId,condition,timestamp);
-                    alert.triggerAlert();
+                    Alert alert= bloodPressureAlertFactory.createAlert(patientId,condition,timestamp);
+                    AlertExecutor.executeAlert(alert,"High",10,2);
+
                 } else if (systolicValues.size() == TREND_SIZE) {
                     checkTrend(systolicValues, patientId, timestamp);
                 }
@@ -53,8 +55,8 @@ public class BloodPressureStrategy implements AlertStrategy{
                 diastolicValues.add(value);
                 if (value > DIASTOLIC_HIGH_THRESHOLD || value < DIASTOLIC_LOW_THRESHOLD) {
                     condition = "The diastolic blood pressure is Critical!";
-                    Alert alert= new Alert(patientId,condition,timestamp);
-                    alert.triggerAlert();
+                    Alert alert= bloodPressureAlertFactory.createAlert(patientId, condition,timestamp);
+                    AlertExecutor.executeAlert(alert,"High",10,2);
                 } else if (diastolicValues.size() == TREND_SIZE) {
                     checkTrend(diastolicValues, patientId, timestamp);
                 }
@@ -72,13 +74,14 @@ public class BloodPressureStrategy implements AlertStrategy{
         String condition = "";
         if ((secondValue - firstValue > TREND_THRESHOLD) && (thirdValue - secondValue > TREND_THRESHOLD)) {
             condition = "Blood pressure is consistently increasing! ";
-           Alert alert= new Alert(patientId,condition,timestamp);
-           alert.triggerAlert();
+            Alert alert= bloodPressureAlertFactory.createAlert(patientId, condition,timestamp);
+            AlertExecutor.executeAlert(alert,"Medium",5,1);
+
             values.remove(0);
         } else if ((firstValue - secondValue > TREND_THRESHOLD) && (secondValue - thirdValue > TREND_THRESHOLD)) {
             condition = "Blood pressure is consistently decreasing! ";
-            Alert alert= new Alert(patientId,condition,timestamp);
-            alert.triggerAlert();
+            Alert alert= bloodPressureAlertFactory.createAlert(patientId, condition,timestamp);
+            AlertExecutor.executeAlert(alert,"Medium",5,1);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.alerts.alert_strategies;
 
 import com.alerts.Alert;
+import com.alerts.alert_decorators.AlertExecutor;
 import com.alerts.alert_factories.AlertFactory;
 import com.alerts.alert_factories.HeartRateAlertFactory;
 import com.data_management.PatientRecord;
@@ -27,8 +28,8 @@ public class HeartRateStrategy implements AlertStrategy {
 
             if (type.equals("ECG") && value > THRESHOLD) {
                 condition = "Heart Rate is too high! ";
-                Alert alert= new Alert(patientId,condition,timestamp);
-                alert.triggerAlert();
+                Alert alert= heartRateAlertFactory.createAlert(patientId,condition,timestamp);
+                AlertExecutor.executeAlert(alert,"High",10,2);
             }
         }
     }

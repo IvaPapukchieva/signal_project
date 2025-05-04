@@ -1,6 +1,7 @@
 package com.alerts.alert_strategies;
 
 import com.alerts.Alert;
+import com.alerts.alert_decorators.AlertExecutor;
 import com.alerts.alert_factories.AlertFactory;
 import com.alerts.alert_factories.BloodOxygenAlertFactory;
 import com.data_management.PatientRecord;
@@ -28,21 +29,17 @@ public class BloodOxygenStrategy implements AlertStrategy {
             double value = record.getMeasurementValue();
             long timestamp = record.getTimestamp();
             String condition;
-
             if (type.equals("Oxygen Saturation")) {
-
                 if (value < THRESHOLD) {
                     condition = "Oxygen saturation is too low!";
-                    Alert alert= new Alert(patientId,condition,timestamp);
-                    alert.triggerAlert();
+                    Alert alert= bloodOxygenAlertFactory.createAlert(patientId,condition,timestamp);
+                    AlertExecutor.executeAlert(alert,"High",10,2);
                 }
-
                 if (prevSaturation != -1 && timestamp - prevTimestamp <= DROP_LIMIT && prevSaturation - value >= DROP_THRESHOLD) {
                     condition = "Oxygen saturation is under the drop limit!";
                     Alert alert= new Alert(patientId,condition,timestamp);
-                    alert.triggerAlert();
+                    AlertExecutor.executeAlert(alert,"Medium",5,1);
                 }
-                // Update previous values
                 prevSaturation = value;
                 prevTimestamp = timestamp;
             }
