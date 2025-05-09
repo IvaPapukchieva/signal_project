@@ -1,6 +1,8 @@
 package com.alerts.alert_strategies;
 
 import com.alerts.Alert;
+import com.alerts.alert_decorators.AlertComponent;
+import com.alerts.alert_decorators.AlertExecutor;
 import com.data_management.PatientRecord;
 
 import java.util.List;
@@ -34,5 +36,8 @@ public class HypotensiveHypoxemiaStrategy implements AlertStrategy {
         }
     }
 
+    public List<AlertComponent>  getTriggeredAlerts() {
+        return AlertExecutor.getTriggeredAlerts();
+    }
 
 }

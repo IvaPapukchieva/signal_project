@@ -1,5 +1,8 @@
 package com.alerts.alert_decorators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AlertExecutor {
 
     /**
@@ -9,6 +12,7 @@ public class AlertExecutor {
      * and repeated alert functionality, then triggers the final alert.
      * </p>
      */
+    private static List<AlertComponent> alertComponentList = new ArrayList<>();
 
    public static void executeAlert(AlertComponent decoratedAlert,
                                      String priorityLevel,
@@ -17,7 +21,21 @@ public class AlertExecutor {
        AlertComponent priorityAlert= new PriorityAlertDecorator(decoratedAlert,priorityLevel);
        AlertComponent repeatedAlert = new RepeatedAlertDecorator(priorityAlert,interval,amountOfRepetitions);
        repeatedAlert.triggerAlert();
+       addTriggeredAlerts(repeatedAlert);
 
    }
+
+    public static void addTriggeredAlerts(AlertComponent alert) {
+        alertComponentList.add(alert);
+
+    }
+
+    public static List<AlertComponent> getTriggeredAlerts() {
+        return alertComponentList;
+    }
+
+
+
+
 
 }

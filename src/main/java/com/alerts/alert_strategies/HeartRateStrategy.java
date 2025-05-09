@@ -1,6 +1,7 @@
 package com.alerts.alert_strategies;
 
 import com.alerts.Alert;
+import com.alerts.alert_decorators.AlertComponent;
 import com.alerts.alert_decorators.AlertExecutor;
 import com.alerts.alert_factories.AlertFactory;
 import com.alerts.alert_factories.HeartRateAlertFactory;
@@ -34,5 +35,8 @@ public class HeartRateStrategy implements AlertStrategy {
         }
     }
 
+    public List<AlertComponent>  getTriggeredAlerts() {
+        return AlertExecutor.getTriggeredAlerts();
+    }
 
 }

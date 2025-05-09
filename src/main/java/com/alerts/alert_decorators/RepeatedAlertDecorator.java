@@ -34,8 +34,8 @@ public class RepeatedAlertDecorator extends AlertDecorator {
     }
 
     @Override
-    public String getAlertDetails() {
-        return super.getAlertDetails() +
+    public String toString() {
+        return super.toString() +
                 "\nRepetition interval: " + interval + " seconds" +
                 "\nRepetitions: " + (int) amountOfRepetitions;
     }

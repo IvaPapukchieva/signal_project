@@ -2,6 +2,8 @@ package com.alerts.alert_decorators;
 
 import com.alerts.Alert;
 
+import java.util.List;
+
 public interface AlertComponent {
 
 
@@ -13,6 +15,8 @@ public interface AlertComponent {
 
     void triggerAlert();
 
+    String toString();
 
-    String getAlertDetails();
+
+
 }

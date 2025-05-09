@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public final class DataStorage {
     private final Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
-    private static DataStorage dataStorage= null;
+    private static DataStorage dataStorage;
 
 
     public static DataStorage getInstance(){

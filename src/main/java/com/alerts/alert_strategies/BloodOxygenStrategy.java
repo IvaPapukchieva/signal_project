@@ -1,6 +1,7 @@
 package com.alerts.alert_strategies;
 
 import com.alerts.Alert;
+import com.alerts.alert_decorators.AlertComponent;
 import com.alerts.alert_decorators.AlertExecutor;
 import com.alerts.alert_factories.AlertFactory;
 import com.alerts.alert_factories.BloodOxygenAlertFactory;
@@ -17,6 +18,7 @@ public class BloodOxygenStrategy implements AlertStrategy {
     private static final long DROP_LIMIT = 600000;
 
     public BloodOxygenStrategy() {
+
         this.bloodOxygenAlertFactory = new BloodOxygenAlertFactory();
     }
     @Override
@@ -46,5 +48,9 @@ public class BloodOxygenStrategy implements AlertStrategy {
         }
     }
 
+
+    public List<AlertComponent>  getTriggeredAlerts() {
+        return AlertExecutor.getTriggeredAlerts();
+    }
 
 }

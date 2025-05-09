@@ -1,7 +1,5 @@
 package com.alerts.alert_decorators;
 
-import com.alerts.Alert;
-
 public class PriorityAlertDecorator extends AlertDecorator {
     private final String priorityLevel;
 
@@ -15,7 +13,8 @@ public class PriorityAlertDecorator extends AlertDecorator {
     }
     @Override
     public String getCondition() {
-        return " Priority Level: " + getPriorityLevel() +". This patient is: " + super.getCondition() ;
+        super.getCondition();
+        return " Priority Level: " + getPriorityLevel() ;
 
 
     }
@@ -28,8 +27,9 @@ public class PriorityAlertDecorator extends AlertDecorator {
 
     }
 
+
     @Override
-    public String getAlertDetails() {
-        return "Priority Level: " + getPriorityLevel() + "\n" + super.getAlertDetails();
+    public String toString() {
+        return "Priority Level: " + getPriorityLevel() + "\n" + super.toString();
     }
 }

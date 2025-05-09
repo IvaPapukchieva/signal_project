@@ -19,7 +19,7 @@ public class AlertDecoratorTest {
 
           repeatedAlert.triggerAlert();
 
-            String alertDetails = repeatedAlert.getAlertDetails();
+            String alertDetails = repeatedAlert.toString();
 
             assertTrue(alertDetails.contains("Patient ID: 1"));
             assertTrue(alertDetails.contains("Condition: sick"));

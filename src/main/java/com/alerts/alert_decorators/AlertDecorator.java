@@ -1,11 +1,14 @@
 package com.alerts.alert_decorators;
 
 
+import java.util.List;
+
 public class AlertDecorator implements AlertComponent{
     private final AlertComponent decoratedAlert;;
 
     public AlertDecorator(AlertComponent decoratedAlert) {
         this.decoratedAlert = decoratedAlert;
+
     }
     @Override
     public String getPatientId() {
@@ -28,9 +31,8 @@ public class AlertDecorator implements AlertComponent{
     }
 
     @Override
-    public String getAlertDetails() {
-        return decoratedAlert.getAlertDetails();
+    public String toString() {
+        return decoratedAlert.toString();
     }
-
 
 }
