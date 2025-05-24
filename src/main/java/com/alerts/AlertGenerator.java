@@ -29,8 +29,8 @@ public class AlertGenerator {
     public AlertGenerator() {
         strategies.add(new BloodPressureStrategy());
         strategies.add(new BloodOxygenStrategy());
-        strategies.add(new HypotensiveHypoxemiaStrategy());
         strategies.add(new HeartRateStrategy());
+        strategies.add(new HypotensiveHypoxemiaStrategy());
     }
 
     /**

@@ -14,6 +14,7 @@ public class HypotensiveHypoxemiaStrategy implements AlertStrategy {
 
     @Override
     public void checkAlert(String patientId, List<PatientRecord> records) {
+        clearAlerts();
         double systolic = -1;
         double oxygenSaturation = -1;
 
@@ -39,5 +40,10 @@ public class HypotensiveHypoxemiaStrategy implements AlertStrategy {
     public List<AlertComponent>  getTriggeredAlerts() {
         return AlertExecutor.getTriggeredAlerts();
     }
+
+    public static void clearAlerts() {
+        AlertExecutor.getTriggeredAlerts().clear();
+    }
+
 
 }

@@ -23,6 +23,7 @@ public class BloodOxygenStrategy implements AlertStrategy {
     }
     @Override
     public void checkAlert(String patientId, List<PatientRecord> records) {
+         clearAlerts();
         double prevSaturation = -1;
         long prevTimestamp = -1;
 
@@ -31,7 +32,7 @@ public class BloodOxygenStrategy implements AlertStrategy {
             double value = record.getMeasurementValue();
             long timestamp = record.getTimestamp();
             String condition;
-            if (type.equals("Oxygen Saturation")) {
+            if (type.equals("Saturation")) {
                 if (value < THRESHOLD) {
                     condition = "Oxygen saturation is too low!";
                     Alert alert= bloodOxygenAlertFactory.createAlert(patientId,condition,timestamp);
@@ -51,6 +52,10 @@ public class BloodOxygenStrategy implements AlertStrategy {
 
     public List<AlertComponent>  getTriggeredAlerts() {
         return AlertExecutor.getTriggeredAlerts();
+    }
+
+    public static void clearAlerts() {
+        AlertExecutor.getTriggeredAlerts().clear();
     }
 
 }

@@ -18,6 +18,7 @@ public class AlertExecutor {
                                      String priorityLevel,
                                      long interval,
                                      double amountOfRepetitions){
+
        AlertComponent priorityAlert= new PriorityAlertDecorator(decoratedAlert,priorityLevel);
        AlertComponent repeatedAlert = new RepeatedAlertDecorator(priorityAlert,interval,amountOfRepetitions);
        repeatedAlert.triggerAlert();

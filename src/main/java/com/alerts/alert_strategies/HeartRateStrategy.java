@@ -21,6 +21,7 @@ public class HeartRateStrategy implements AlertStrategy {
 
     @Override
     public void checkAlert(String patientId, List<PatientRecord> records) {
+        clearAlerts();
         for (PatientRecord record : records) {
             String type = record.getRecordType();
             double value = record.getMeasurementValue();
@@ -38,5 +39,9 @@ public class HeartRateStrategy implements AlertStrategy {
     public List<AlertComponent>  getTriggeredAlerts() {
         return AlertExecutor.getTriggeredAlerts();
     }
+    public static void clearAlerts() {
+        AlertExecutor.getTriggeredAlerts().clear();
+    }
+
 
 }

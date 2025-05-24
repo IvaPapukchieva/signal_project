@@ -29,6 +29,7 @@ public class BloodPressureStrategy implements AlertStrategy{
 
     @Override
     public void checkAlert(String patientId, List<PatientRecord> records) {
+        clearAlerts();
         List<Double> systolicValues = new ArrayList<>();
         List<Double> diastolicValues = new ArrayList<>();
         for (PatientRecord record : records) {
@@ -37,7 +38,7 @@ public class BloodPressureStrategy implements AlertStrategy{
             String condition = "";
             long timestamp = record.getTimestamp();
 
-            if (type.equals("Systolic")) {
+            if (type.equals("SystolicPressure")) {
                 systolicValues.add(value);
                 if (value > SYSTOLIC_HIGH_THRESHOLD || value < SYSTOLIC_LOW_THRESHOLD) {
                     condition = "The systolic blood pressure is Critical!";
@@ -52,7 +53,7 @@ public class BloodPressureStrategy implements AlertStrategy{
                 }
             }
 
-            if (type.equals("Diastolic")) {
+            if (type.equals("DiastolicPressure")) {
                 diastolicValues.add(value);
                 if (value > DIASTOLIC_HIGH_THRESHOLD || value < DIASTOLIC_LOW_THRESHOLD) {
                     condition = "The diastolic blood pressure is Critical!";
@@ -89,5 +90,10 @@ public class BloodPressureStrategy implements AlertStrategy{
     public List<AlertComponent>  getTriggeredAlerts() {
         return AlertExecutor.getTriggeredAlerts();
     }
+
+    public static void clearAlerts() {
+        AlertExecutor.getTriggeredAlerts().clear();
+    }
+
 
 }
