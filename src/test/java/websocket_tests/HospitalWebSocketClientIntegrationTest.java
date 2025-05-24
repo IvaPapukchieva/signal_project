@@ -18,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class HospitalWebSocketClientIntegrationTest {
 
+
+
     private static final int PORT = 8898;
     private static TestWebSocketServer server;
 
