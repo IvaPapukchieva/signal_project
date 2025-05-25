@@ -24,12 +24,13 @@ public final class DataStorage {
     private static DataStorage dataStorage;
 
 
-    public static DataStorage getInstance(){
-        if(dataStorage==null){
-            dataStorage=new DataStorage();
+    public static DataStorage getInstance() {
+        if (dataStorage == null) {
+            dataStorage = new DataStorage();
         }
         return dataStorage;
     }
+
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
@@ -71,7 +72,7 @@ public final class DataStorage {
      * @param endTime   the end of the time range, in milliseconds since the Unix
      *                  epoch
      * @return a list of PatientRecord objects that fall within the specified time
-     *         range
+     * range
      */
     public List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
         Patient patient = patientMap.get(patientId);
@@ -81,6 +82,7 @@ public final class DataStorage {
         }
         return new ArrayList<>(); // return an empty list if no patient is found
     }
+
     public List<PatientRecord> getAllRecords(int patientId) {
         Patient patient = patientMap.get(patientId);
         System.out.println(patient);
@@ -103,13 +105,11 @@ public final class DataStorage {
      * The main method for the DataStorage class.
      * Initializes the system, reads data into storage, and continuously monitors
      * and evaluates patient data.
-
      */
 
     public void clear() {
         patientMap.clear();
     }
-
 
 
     public static void main(String[] args) throws IOException {
@@ -133,34 +133,37 @@ public final class DataStorage {
         // Initialize the AlertGenerator with the storage
         AlertGenerator alertGenerator = new AlertGenerator();
 
-        int port = 8890;
+        int port = 8893;
         WebSocketOutputStrategy strategy = new WebSocketOutputStrategy(port);
         DataStorage dataStorage = DataStorage.getInstance();
 
         // Connect to the WebSocket as a client to receive data in real-time
-        DataReader reader = new WebSocketDataReader("ws://localhost:8890");
+        DataReader reader = new WebSocketDataReader("ws://localhost:8893");
         reader.readData(dataStorage);
 
         int patientCount = 5;
 
         PatientDataGenerator ecgDataGenerator = new ECGDataGenerator(patientCount);
-        PatientDataGenerator bloodSaturationDataGenerator  = new BloodSaturationDataGenerator(patientCount);
+        PatientDataGenerator bloodSaturationDataGenerator = new BloodSaturationDataGenerator(patientCount);
         PatientDataGenerator bloodPressureDataGenerator = new BloodPressureDataGenerator(patientCount);
-        PatientDataGenerator bloodLevelsDataGenerator = new BloodLevelsDataGenerator(patientCount);
+
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(() -> {
-            for (int i=0;i<patientCount;i++) {
-                ecgDataGenerator.generate(i, strategy);
-                bloodSaturationDataGenerator.generate(i, strategy);
-                bloodPressureDataGenerator.generate(i, strategy);
-                bloodLevelsDataGenerator.generate(i, strategy);
+            for (int i = 0; i < patientCount; i++) {
+                for (int j = 0; j < 5; j++) {
+                    ecgDataGenerator.generate(i, strategy);
+                    bloodSaturationDataGenerator.generate(i, strategy);
+                    bloodPressureDataGenerator.generate(i, strategy);
+                }
             }
+
+            // Evaluate alerts for each patient
             for (Patient patient : dataStorage.getAllPatients()) {
                 alertGenerator.evaluateData(patient);
             }
 
         }, 0, 5, TimeUnit.SECONDS);
+
+
     }
-
-
 }

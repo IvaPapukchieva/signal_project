@@ -27,10 +27,11 @@ public class AlertGenerator {
     private final List<AlertStrategy> strategies = new ArrayList<>();
 
     public AlertGenerator() {
+        strategies.add(new HypotensiveHypoxemiaStrategy());
         strategies.add(new BloodPressureStrategy());
         strategies.add(new BloodOxygenStrategy());
         strategies.add(new HeartRateStrategy());
-        strategies.add(new HypotensiveHypoxemiaStrategy());
+
     }
 
     /**
